@@ -22,7 +22,7 @@ public class Action {
 
     String type;
 
-    Integer packageQuantity;
+    Integer packages;
 
     Integer units;
 

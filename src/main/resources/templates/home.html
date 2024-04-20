@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Include HTMX library -->
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org/dist/htmx.min.js"></script>
+
+</head>
+<body class="bg-gray-100">
+<div class="flex">
+    <!-- Sidebar -->
+    <aside class="bg-indigo-100 text-black-100 w-64 min-h-screen">
+        <div class="p-4 border-b border-indigo-300">
+            <h1 class="text-2xl font-semibold">Dashboard</h1>
+        </div>
+        <nav class="mt-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="#users" hx-get="/user" hx-trigger="click" hx-target="#content"
+                       class="block py-2 px-4 text-sm hover:bg-indigo-200 hover:text-black">
+                        Products
+                    </a>
+                </li>
+                <li>
+                    <a href="#platforms" hx-get="/platform" hx-trigger="click" hx-target="#content"
+                       class="block py-2 px-4 text-sm hover:bg-indigo-200 hover:text-black">
+                        Inventory
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <!-- Main content -->
+    <div class="flex-1">
+        <div id="content" class="p-8">
+            <!-- Content loaded dynamically using HTMX -->
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
