@@ -13,13 +13,13 @@ public class HtmxController {
 
     @GetMapping(path = "/home")
     public String getHome(){
-        return "home";
+        return "home_v1";
     }
     @GetMapping(path = "/products")
     public String getProducts(Model model){
         var product = new Product(1, "Panadol", "Caja", 23);
         model.addAttribute("products", Arrays.asList(product));
-        return "products_v1";
+        return "products";
     }
 
     @GetMapping(path = "/inventory")
