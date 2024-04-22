@@ -151,10 +151,11 @@
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Presentation in
                                 box</label>
                             <select id="underline_select_add"
+                                    onchange="checkInput()"
                                     class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                 <option selected>Choose</option>
-                                <option value="US">Yes</option>
-                                <option value="CA">No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
                             </select>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
@@ -163,7 +164,7 @@
                                 box</label>
                             <input type="text" name="department" id="product-quantity"
                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Development" required="">
+                                   placeholder="0" required="">
                         </div>
                     </div>
                 </div>
@@ -181,6 +182,22 @@
 <script>
 var func = (function f(a) { console.log(a); initFlowbite(); return f; })('Blammo')
 
+function checkInput() {
+  var inputAdd = document.getElementById('underline_select_add');
+  var inputQuantity = document.getElementById('product-quantity');
 
+  // Disable input2 if input1 has a value, otherwise enable it
+  var disable = inputAdd.value.trim() == 'NO';
+  inputQuantity.disabled = disable;
+
+  if (disable){
+  inputQuantity.classList.remove('bg-gray-50');
+  inputQuantity.classList.add('bg-red-50');
+  }else {
+  inputQuantity.classList.remove('bg-red-50');
+  inputQuantity.classList.add('bg-gray-50');
+  }
+
+}
 
 </script>
