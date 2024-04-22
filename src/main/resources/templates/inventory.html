@@ -1,13 +1,4 @@
 <div xmlns:th="http://www.w3.org/1999/xhtml" class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
-        <div class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
-            <button type="button" data-modal-target="createProductModal" data-modal-show="createProductModal"
-                    class="flex items-center text-white justify-center px-4 py-2 text-sm font-medium rounded-lg bg-blue-700 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 focus:outline-none dark:focus:ring-primary-800">
-
-                Add new product
-            </button>
-        </div>
-    </div>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
@@ -15,44 +6,51 @@
                 Name
             </th>
             <th scope="col" class="px-6 py-3">
-                Presentation
+                Number of boxes
             </th>
             <th scope="col" class="px-6 py-3">
-                Quantity
+                Units per box
             </th>
             <th scope="col" class="px-6 py-3">
+                Units
             </th>
             <th scope="col" class="px-6 py-3">
+                Total
             </th>
+            <th scope="col" class="px-6 py-3"></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product: ${products}"
+        <tr th:each="item: ${inventory}"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                 <div class="ps-3">
-                    <div th:text="${product.name}" class="text-base font-semibold"></div>
+                    <div th:text="${item.name}" class="text-base font-semibold"></div>
                 </div>
             </th>
-            <td th:text="${product.presentation}" class="px-6 py-4">
+            <td th:text="${item.numberOfBoxes}" class="px-6 py-4">
             </td>
-            <td th:text="${product.quantity}" class="px-6 py-4">
+            <td th:text="${item.unitsPerBox}" class="px-6 py-4">
+            </td>
+            <td th:text="${item.units}" class="px-6 py-4">
+            </td>
+            <td th:text="${item.total}" class="px-6 py-4">
             </td>
             <td class="px-6 py-4">
                 <!-- Modal toggle -->
-                <a href="#" type="button" data-modal-target="editUserModal" data-modal-show="editUserModal"
-                   class="font-medium text-yellow-600 dark:text-blue-500 hover:underline">Edit Product</a>
+                <a href="#" type="button" data-modal-target="addItemsModal" data-modal-show="addItemsModal"
+                   class="font-medium text-green-600 dark:text-green-500 hover:underline">Add items</a>
             </td>
             <td class="px-6 py-4">
                 <!-- Modal toggle -->
-                <a href="#" type="button"
-                   class="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete Product</a>
+                <a href="#" type="button" data-modal-target="removeItemsModal" data-modal-show="removeItemsModal"
+                   class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove items</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <!-- Edit user modal -->
-    <div id="editUserModal" tabindex="-1" aria-hidden="true"
+    <!-- add items-->
+    <div id="addItemsModal" tabindex="-1" aria-hidden="true"
          class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
@@ -60,11 +58,11 @@
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        Edit Product
+                        Add items
                     </h3>
                     <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="editUserModal">
+                            data-modal-hide="addItemsModal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                              viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -78,21 +76,21 @@
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3">
                             <label for="first-name"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of boxes</label>
                             <input type="text" name="first-name" id="first-name"
                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Bonnie" required="">
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="phone-number"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Presentation</label>
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of units</label>
                             <input type="text" name="phone-number" id="phone-number"
                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Caja" required="">
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="department"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operation's reason</label>
                             <input type="text" name="department" id="department"
                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Development" required="">
@@ -103,14 +101,14 @@
                 <div class="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
                     <button type="submit"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Save all
+                        add
                     </button>
                 </div>
             </form>
         </div>
     </div>
-    <!-- create product modal -->
-    <div id="createProductModal" tabindex="-1" aria-hidden="true"
+    <!-- remove items-->
+    <div id="removeItemsModal" tabindex="-1" aria-hidden="true"
          class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
@@ -118,11 +116,11 @@
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        Create Product
+                        Remove items
                     </h3>
                     <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="createProductModal">
+                            data-modal-hide="removeItemsModal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                              viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -136,22 +134,22 @@
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3">
                             <label for="first-name"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input type="text" name="first-name" id="product-name"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of boxes</label>
+                            <input type="text" name="first-name" id="number-boxes"
                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Bonnie" required="">
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="phone-number"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Presentation</label>
-                            <input type="text" name="phone-number" id="product-presentation"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of units</label>
+                            <input type="text" name="phone-number" id="units-number"
                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Caja" required="">
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="department"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                            <input type="text" name="department" id="product-quantity"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operation's reason</label>
+                            <input type="text" name="department" id="remove-reason"
                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Development" required="">
                         </div>
@@ -161,7 +159,7 @@
                 <div class="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
                     <button type="submit"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Create
+                        remove
                     </button>
                 </div>
             </form>
