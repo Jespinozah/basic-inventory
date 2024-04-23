@@ -13,8 +13,8 @@ public interface ProductService {
 
     Integer create(ProductUseCase.Product product);
 
-    void delete();
+    void delete(Integer id);
 
-    ProductUseCase.Product update();
+    Integer update(ProductUseCase.Product product);
 
 }

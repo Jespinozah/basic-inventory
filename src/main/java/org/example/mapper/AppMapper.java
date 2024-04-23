@@ -6,8 +6,12 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AppMapper {
-    ProductUseCase.Product toProductUseCase(ProductController.Product product);
+    ProductUseCase.Product productControllerToProductUseCase(ProductController.Product product);
 
-    Product toProductEntity(ProductUseCase.Product product);
+    Product productUseCaseToProductEntity(ProductUseCase.Product product);
+
+    ProductUseCase.Product productEntityToProductUseCase(Product product);
+
+    ProductController.Product productUseCaseToProductController(ProductUseCase.Product product);
 
 }

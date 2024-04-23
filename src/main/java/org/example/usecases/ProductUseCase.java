@@ -31,22 +31,27 @@ public class ProductUseCase implements ProductService {
 
     @Override
     public List<Product> findAll() {
-        return null;
+        return productRepository.findAll()
+                .stream()
+                .map(mapper::productEntityToProductUseCase)
+                .toList();
     }
 
     @Override
     public Integer create(Product product) {
-        return productRepository.save(mapper.toProductEntity(product)).getId();
+        return productRepository.save(mapper.productUseCaseToProductEntity(product)).getId();
     }
 
     @Override
-    public void delete() {
+    public void delete(Integer id) {
+        productRepository.deleteById(id);
 
     }
 
     @Override
-    public Product update() {
-        return null;
+    public Integer update(Product product) {
+        var dbProduct = productRepository.findById(product.id()).orElseThrow();
+        return productRepository.save(mapper.productUseCaseToProductEntity(product)).getId();
     }
 
 }
