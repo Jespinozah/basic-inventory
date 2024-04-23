@@ -22,8 +22,8 @@ public class Product {
     @Column(unique = true)
     String name;
 
-    String presentation;
+    Boolean presentationInBox;
 
-    Integer quantity;
+    Integer unitsPerBox;
 
 }

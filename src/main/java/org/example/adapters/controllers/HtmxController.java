@@ -10,7 +10,7 @@ import java.util.Arrays;
 @Controller
 public class HtmxController {
 
-    public record Product(Integer id, String name, String presentation, Integer quantity){}
+    public record Product(Integer id, String name, Boolean presentationInBox, Integer quantity){}
 
     public record Item (String name, Integer numberOfBoxes, Integer unitsPerBox, Integer units, Integer total){}
 
@@ -21,7 +21,7 @@ public class HtmxController {
 
     @GetMapping(path = "/products")
     public String getProducts(Model model){
-        var product = new Product(1, "Panadol", "Caja", 23);
+        var product = new Product(1, "Panadol", true, 23);
         model.addAttribute("products", Arrays.asList(product));
         return "products";
     }

@@ -11,7 +11,7 @@ public interface ProductService {
 
     List<ProductUseCase.Product> findAll();
 
-    Integer create();
+    Integer create(ProductUseCase.Product product);
 
     void delete();
 
