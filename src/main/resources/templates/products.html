@@ -119,7 +119,13 @@
          class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
-            <form class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <form th:action="@{/products}"
+                  method="post"
+                  hx-post="/api/products"
+                  hx-trigger="submit"
+                  hx-ext="json-enc"
+                  hx-swap="outerHTML"
+                  class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
@@ -140,29 +146,30 @@
                 <div class="p-6 space-y-6">
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3">
-                            <label for="first-name"
+                            <label for="product-name"
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input type="text" name="first-name" id="product-name"
+                            <input type="text" name="name" id="product-name"
                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Bonnie" required="">
                         </div>
                         <div class="col-span-6 sm:col-span-3">
-                            <label for="underline_select_add"
+                            <label for="presentation-in-box"
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Presentation in
                                 box</label>
-                            <select id="underline_select_add"
+                            <select id="presentation-in-box"
+                                    name="presentationInBox"
                                     onchange="checkInput()"
                                     class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                 <option selected>Choose</option>
-                                <option value="YES">Yes</option>
-                                <option value="NO">No</option>
+                                <option value=true>Yes</option>
+                                <option value=false>No</option>
                             </select>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
-                            <label for="department"
+                            <label for="units-per-box"
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Units per
                                 box</label>
-                            <input type="text" name="department" id="product-quantity"
+                            <input type="text"name="unitsPerBox" id="units-per-box"
                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="0" required="">
                         </div>
@@ -179,12 +186,13 @@
         </div>
     </div>
 </div>
+<script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
 <script>
 var func = (function f(a) { console.log(a); initFlowbite(); return f; })('Blammo')
 
 function checkInput() {
-  var inputAdd = document.getElementById('underline_select_add');
-  var inputQuantity = document.getElementById('product-quantity');
+  var inputAdd = document.getElementById('presentation-in-box');
+  var inputQuantity = document.getElementById('units-per-box');
 
   // Disable input2 if input1 has a value, otherwise enable it
   var disable = inputAdd.value.trim() == 'NO';
