@@ -121,10 +121,10 @@
             <!-- Modal content -->
             <form th:action="@{/products}"
                   method="post"
-                  hx-post="/api/products"
+                  hx-post="/products"
                   hx-trigger="submit"
                   hx-ext="json-enc"
-                  hx-swap="outerHTML"
+                  hx-target="#content"
                   class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
