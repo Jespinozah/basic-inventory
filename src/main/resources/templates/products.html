@@ -195,7 +195,7 @@ function checkInput() {
   var inputQuantity = document.getElementById('units-per-box');
 
   // Disable input2 if input1 has a value, otherwise enable it
-  var disable = inputAdd.value.trim() == 'NO';
+  var disable = inputAdd.value == 'false';
   inputQuantity.disabled = disable;
 
   if (disable){
