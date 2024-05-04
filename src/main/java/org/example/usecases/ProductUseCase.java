@@ -1,5 +1,6 @@
 package org.example.usecases;
 
+import org.example.entities.Product;
 import org.example.interfaces.repositories.ProductRepository;
 import org.example.interfaces.services.ProductService;
 import org.example.mapper.AppMapper;
@@ -12,7 +13,7 @@ import java.util.List;
 public class ProductUseCase implements ProductService {
 
 
-    public record Product(Integer id, String name, Boolean presentationInbox, Integer unitsPerBox) {
+    public record Product(Integer id, String name, Boolean presentationInBox, Integer unitsPerBox) {
     }
     private final ProductRepository productRepository;
 
@@ -39,7 +40,11 @@ public class ProductUseCase implements ProductService {
 
     @Override
     public Integer create(Product product) {
-        return productRepository.save(mapper.productUseCaseToProductEntity(product)).getId();
+        org.example.entities.Product productEntity = new org.example.entities.Product();
+        productEntity.setName(product.name);
+        productEntity.setPresentationInBox(product.presentationInBox == null ? false : product.presentationInBox);
+        productEntity.setUnitsPerBox(product.unitsPerBox);
+        return productRepository.save(productEntity).getId();
     }
 
     @Override
@@ -51,7 +56,8 @@ public class ProductUseCase implements ProductService {
     @Override
     public Integer update(Product product) {
         var dbProduct = productRepository.findById(product.id()).orElseThrow();
-        return productRepository.save(mapper.productUseCaseToProductEntity(product)).getId();
+        //return productRepository.save(mapper.productUseCaseToProductEntity(product)).getId();
+        return 0;
     }
 
 }

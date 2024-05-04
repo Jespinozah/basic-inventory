@@ -8,7 +8,7 @@
             </button>
         </div>
     </div>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <table class="table-auto overflow-scroll w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-6 py-3">
@@ -34,9 +34,9 @@
                     <div th:text="${product.name}" class="text-base font-semibold"></div>
                 </div>
             </th>
-            <td th:text="${product.presentationInBox}" class="px-6 py-4">
+            <td th:text="${product.presentationInBox}" class="px-6 py-4 text-base font-semibold">
             </td>
-            <td th:text="${product.quantity}" class="px-6 py-4">
+            <td th:text="${product.unitsPerBox}" class="px-6 py-4 text-base font-semibold">
             </td>
             <td class="px-6 py-4">
                 <!-- Modal toggle -->
