@@ -26,7 +26,7 @@
             </th>
         </tr>
         </thead>
-        <tbody>
+        <tbody hx-confirm="Are you sure?" hx-target="closest tr" hx-swap="outerHTML">
         <tr th:each="product: ${products}"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
@@ -46,6 +46,7 @@
             <td class="px-6 py-4">
                 <!-- Modal toggle -->
                 <a href="#" type="button"
+                   th:attr="hx-delete=@{/api/products/{id}(id=${product.id})}"
                    class="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete Product</a>
             </td>
         </tr>

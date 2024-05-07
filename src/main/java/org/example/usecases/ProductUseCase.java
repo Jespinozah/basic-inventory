@@ -1,6 +1,5 @@
 package org.example.usecases;
 
-import org.example.entities.Product;
 import org.example.interfaces.repositories.ProductRepository;
 import org.example.interfaces.services.ProductService;
 import org.example.mapper.AppMapper;

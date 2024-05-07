@@ -3,16 +3,13 @@ package org.example.adapters.controllers;
 import org.example.adapters.dtos.RestDTOs;
 import org.example.interfaces.services.ProductService;
 import org.example.mapper.AppMapper;
-import org.example.usecases.ProductUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.swing.*;
 import java.util.Arrays;
 
 @Controller
@@ -49,6 +46,7 @@ public class HtmxController {
         productService.create(appMapper.productControllerToProductUseCase(product));
         return "redirect:/products";
     }
+
     @GetMapping(path = "/inventory")
     public String getInventory(Model model){
         var item = new RestDTOs.Item("Panadol", 1, 10, 5, 10);
